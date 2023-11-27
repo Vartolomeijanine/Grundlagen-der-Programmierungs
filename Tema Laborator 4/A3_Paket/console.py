@@ -1,73 +1,47 @@
 from A3_Paket.logik import S_S_P_Reset
 
-def S_S_P_Drawings(x):
 
-    inside = False
-    l = []
-    
-    if x == "Schere":
-        #Prints out the drawing for scissors
+def read_from_file(choice): #citeste si afiseaza desenele cu optiunile alese din fisierele respective
+    try:
+        if choice == "Stein":
+            file = open("stein.txt", "r")
+            content = file.read()
+            if content:
+                print(content)
+            else:
+                print("Die Datei ist leer.")
+            file.close()
+        elif choice == "Papier":
+            file = open("papier.txt", "r")
+            content = file.read()
+            if content:
+                print(content)
+            else:
+                print("Die Datei ist leer.")
+            file.close()
+        elif choice == "Schere":
+            file = open("schere.txt", "r")
+            content = file.read()
+            if content:
+                print(content)
+            else:
+                print("Die Datei ist leer.")
+            file.close()
 
-        with open ("S_S_P_Zeichnungen.txt") as f:
-            for line in f:
-                line = line.rstrip()
+    except FileNotFoundError:
+            print("Zeichnungsdatei nicht gefunden.")
 
-                if line.startswith("---"):
-                    inside = True
-                
-                elif line.startswith("###"):
-                    inside = False
-                
-                elif inside:
-                    l.append(line)
-
-    elif x == "Stein":
-        #Prints out the drawing for stone
-        
-        with open ("S_S_P_Zeichnungen.txt") as f:
-            for line in f:
-                line = line.rstrip()
-                
-                if line.startswith("###"):
-                    inside = True
-                
-                elif line.startswith("$$$"):
-                    inside = False
-                
-                elif inside:
-                    l.append(line)
-
-    elif x == "Papier":
-        #Prints out the drawing for paper
-
-        with open ("S_S_P_Zeichnungen.txt") as f:
-            for line in f:
-                line = line.rstrip()
-
-                if line.startswith("$$$"):
-                    inside = True
-                
-                elif line.startswith("((("):
-                    inside = False
-                
-                elif inside:
-                    l.append(line)
-    
-    result = '\n'.join(l)
-    return result
-
-
-def Ergebnis_spiel(human_score, computer_score):
+def Ergebnis_spiel(human_score, computer_score): # iti spune scorul actual
     
     l = []
     l.append("Ergebnis ist" + " " + str(human_score) + " " + "-" + " " + str(computer_score) + '\n')
     l.append("Was möchtest du spielen?")
-    
+
     result = "\n".join(l)
     return result
 
 
-def win_check(win):
+def win_check(win): # vede cine a castigat runda si afiseaza mesajul corespunzator
     
     if win == 0:
         return "Niemand gewinnt die Runde\n"
@@ -77,15 +51,15 @@ def win_check(win):
         return "Die Rechner gewinnt die Runde\n"
     
     
-def game_win(human_score):
+def game_win(human_score): #daca cineva castiga 2 runde consecutive castiga jocul
     
     if human_score == 2:
         return "Der Mensch gewinnt das Spiel"
     else:
         return "Die Rechner gewinnt das Spiel"
+
     
-    
-def game_remake(remake, human_score, computer_score):
+def game_remake(remake, human_score, computer_score): #reseteaza scorul daca mai vrei sa joci inca o dats
     
     if remake == "Ja":
         S_S_P_Reset(human_score, computer_score)

@@ -11,7 +11,7 @@ def menu_a3():
         computer_score = 0
         S_S_P_list = ["Schere", "Stein", "Papier"]
                 
-        while human_score != 2 and computer_score != 2:
+        while human_score != 2 and computer_score != 2: # cat timp nimeni nu a castigat
                     
             computer_choice = random.choice(S_S_P_list)
             print(Ergebnis_spiel(human_score, computer_score))
@@ -22,11 +22,11 @@ def menu_a3():
                 return "Nur gegebene Wörter erlaubt"
 
             print("Rechner spielt:", computer_choice)
-            print(S_S_P_Drawings(computer_choice))
+            read_from_file(computer_choice) # afiseaya desenul
             print("Mensch spielt:", human_choice)
-            print(S_S_P_Drawings(human_choice))
+            read_from_file(human_choice)
                     
-            win = S_S_P_Cases(human_choice, computer_choice)
+            win = S_S_P_Cases(human_choice, computer_choice) #cine castiga
                     
             print(win_check(win))
                     

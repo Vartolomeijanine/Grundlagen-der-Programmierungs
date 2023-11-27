@@ -17,16 +17,16 @@ def g_down(pen):
     pen.pendown()
     
     
-def draw_letter(dictionar, text, pen):
+def draw_letter(dictionar, text, pen): #deseneaza litera
     
     for i in range(len(text)):
         letter = text[i]
             
         if letter in dictionar:
             
-            value = dictionar.get(letter)
+            value = dictionar.get(letter) #ia valoarea din dictionar a literei
             
-            for j in range(len(value)):
+            for j in range(len(value)): # muta turtle dupa instructiuni
                 
                 if value[j] == 'w':
                     w_move(pen)
@@ -53,7 +53,7 @@ def draw_letter(dictionar, text, pen):
      
      
 
-def make_string(symbol_input, pen):
+def make_string(symbol_input, pen): #misca turtle cand ii yicem de noul caracter
     
     if symbol_input == 'w':
         w_move(pen)
@@ -87,7 +87,7 @@ def make_string(symbol_input, pen):
 
 
 
-def key_check(symbol, dictionar):
+def key_check(symbol, dictionar): #daca key e deja in dictionar
 
     if symbol in dictionar.keys():
         return 0
@@ -97,24 +97,24 @@ def key_check(symbol, dictionar):
 
 def symbol_check(symbol_input, dictionar):
 
-    if symbol_input in dictionar.values():
-            return 0
+    if symbol_input in dictionar.values(): #daca simbolul e deja in dictionar returnam 0
+        return 0
     return 1
 
 
 
-def nehme_Symbolen(dictionar):
+def nehme_Symbolen(dictionar): # baga noul caracter in memorie
     
     try:
         with open("Symbolen.txt", 'r') as f:
             for line in f:
                 l = []
                 l = line.split()
-                v1 = key_check(l[0], dictionar)
-                v2 = symbol_check(l[1], dictionar)
+                v1 = key_check(l[0], dictionar) #verifica daca pe linia citita din szmbolen.txt exista pe prima poyitie un singur caracter
+                v2 = symbol_check(l[1], dictionar) # vf daaca pe a doua poyitie sunt litere
             
-                if v1 and v2:
-                    dictionar[l[0]] = l[1]
+                if v1 and v2: #daca ambele sunt true
+                    dictionar[l[0]] = l[1] #creeaya cheia si value in memorie
                     
         return "Alle Symbole von Symbolen.txt sind untergeladen"
                     
@@ -124,7 +124,7 @@ def nehme_Symbolen(dictionar):
         
         
 
-def Symbol_bauen():
+def Symbol_bauen(): # verifica daca este un singur caracter ca nume
     
     ok = 0
     while not ok:
@@ -143,7 +143,7 @@ def Symbol_bauen():
                 
 
 
-def Symbol_input_bauen(pen):
+def Symbol_input_bauen(pen): #daca a reusit sa deseneye
     
     ok = 0
     l = ""
@@ -152,7 +152,7 @@ def Symbol_input_bauen(pen):
         symbol_input = input("Schreib die Anweisungen für dein Symbol: ")
         
         if make_string(symbol_input, pen):
-            l += symbol_input
+            l += symbol_input #adaug instructiunile
             
         else:
             
@@ -169,7 +169,7 @@ def Symbol_input_bauen(pen):
 
 def key_symbol_pass(key_pass, symbol_pass, symbol, symbol_input):
     
-    if  (key_pass == 0 or symbol_pass == 0):
+    if  (key_pass == 0 or symbol_pass == 0): #verifica daca am introdus un simbol deja existent in dictionar
         
         l = []
         l.append("Die Folgende Sachen sind schon im Symbol-Wörterbuch:")
@@ -187,11 +187,11 @@ def key_symbol_pass(key_pass, symbol_pass, symbol, symbol_input):
                             
     else:
                             
-        save = input("Möchtest du dieses Symbol speichern? (Ja für ja, oder was anderes für nein): ")
+        save = input("Möchtest du dieses Symbol speichern? (Ja für ja, oder was anderes für nein): ") # salveaya in fisierul meu noul caracter
         
         if save == "Ja":
             
-            with open("../Symbolen.txt", 'a') as f:
+            with open("Symbolen.txt", 'a') as f:
                 f.write(symbol)
                 f.write(" ")
                 f.write(symbol_input)
